@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------
-# Author:
+# Author: Chase
 # Date:
 #
 # This module calculates and displays billing information
