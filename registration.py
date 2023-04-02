@@ -36,6 +36,55 @@ def main():
                      'CSC104': []}
     course_max_size = {'CSC101': 3, 'CSC102': 2, 'CSC103': 1, 'CSC104': 3}
 
+    # -----------------------------------------------------------------------
+
+    while True:
+        # ID input
+        id_input = input("Enter ID, 0 to quit: ")
+
+        # Break loop on 0 input
+        if id_input == "0":
+            break
+
+        else:
+            # Checks the ID and PIN
+            if login(id_input, student_list):
+                print("ID and PIN verified\n")
+
+                while True:
+                    # Input for user selection
+                    user_selection = input(
+                        "Enter 1 to add course, 2 to drop course, 3 to list courses, 4 to show bill, 0 to exit:")
+
+                    # Break loop on 0 input
+                    if user_selection == "0":
+                        print("Session ended.\n")
+                        break
+
+                    # Add course
+                    elif user_selection == "1":
+                        student.add_course(id_input, course_roster, course_max_size)
+
+                    # Drop course
+                    elif user_selection == "2":
+                        student.drop_course(id_input, course_roster)
+
+                    # List courses
+                    elif user_selection == "3":
+                        student.list_courses(id_input, course_roster)
+
+                    # Show bill
+                    elif user_selection == "4":
+                        billing.calculate_hours_and_bill(id_input, student_in_state, course_roster, course_hours)
+
+                    # Invalid input
+                    else:
+                        print("invalid input")
+
+            # Wrong ID and/or PIN
+            else:
+                print("ID or PIN incorrect\n")
+
 
 def login(id, s_list):
     # ------------------------------------------------------------
@@ -45,7 +94,15 @@ def login(id, s_list):
     # combination is in s_list, display message of verification and
     # return True. Otherwise, display error message and return False.
     # -------------------------------------------------------------
-    pass  # temporarily avoid empty function definition
+
+    # PIN input
+    pin_input = input("Enter PIN: ")
+
+    # combines ID and PIN into a tuple and checks if it exists in the student list
+    if (id, pin_input) in s_list:
+        return True
+    else:
+        return False
 
 
 main()
