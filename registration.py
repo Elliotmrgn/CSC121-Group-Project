@@ -75,7 +75,10 @@ def main():
 
                     # Show bill
                     elif user_selection == "4":
-                        billing.calculate_hours_and_bill(id_input, student_in_state, course_roster, course_hours)
+                        # Since the function returns two arguments, calculate_hours_and_bill is required to have an
+                        # asterisk in front of it.
+                        billing.display_hours_and_bill(*billing.calculate_hours_and_bill(id_input, student_in_state,
+                                                                                         course_roster, course_hours))
 
                     # Invalid input
                     else:
