@@ -32,7 +32,30 @@ def add_course(id, c_roster, c_max_size):
     # roster and display a message if there is no problem.  This
     # function has no return value.
     # -------------------------------------------------------------
-    pass  # temporarily avoid empty function definition
+    
+    # This asks the user to enter the course that they want to add
+    course = input("Enter the course you want to add: ")
+    course = course.upper()
+
+    # This checks if the course is offered
+    if course not in c_roster:
+        print("Error: Course not offered.")
+        return
+
+    # This checks if the student has already registered for this course
+    if id in c_roster[course]:
+        print("Error: Student already registered for this course.")
+        return
+
+    # This checks if the course is full
+    if len(c_roster[course]) >= c_max_size[course]:
+        print("Error: Course is full.")
+        return
+
+    # This then adds the student ID to the courses roster
+    c_roster[course].append(id)
+    print("Student successfully added to the course.")
+
 
 
 def drop_course(id, c_roster):
