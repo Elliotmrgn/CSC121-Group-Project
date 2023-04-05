@@ -15,7 +15,23 @@ def list_courses(id, c_roster):
     # student; c_roster is the list of class rosters. This function
     # has no return value.
     # -------------------------------------------------------------
-    pass  # temporarily avoid empty function definition
+    
+    # This finds the students registration information
+    for roster in c_roster:
+        if roster['id'] == id:
+            student_courses = roster['courses']
+            break
+    else:
+        print(f"Student with ID {id} not found.")
+        return
+
+    # This Counts the number of courses
+    num_courses = len(student_courses)
+
+    # Shows the courses
+    print(f"Student with ID {id} has registered for the following {num_courses} courses:")
+    for course in student_courses:
+        print(course)
 
 
 def add_course(id, c_roster, c_max_size):
