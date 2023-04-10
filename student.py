@@ -25,7 +25,7 @@ def list_courses(id, c_roster):
         print(f"Student with ID {id} not found.")
         return
 
-    # This Counts the number of courses
+    #this Counts the number of courses
     num_courses = len(student_courses)
 
     # Shows the courses
@@ -49,28 +49,29 @@ def add_course(id, c_roster, c_max_size):
     # function has no return value.
     # -------------------------------------------------------------
     
-    # Asks the user to enter the course that they want to add
-    course = input("Enter the course you want to add: ")
+    # asks the for the course they want to add
+    course = input('enter the course you want to add?')
     course = course.upper()
 
-    # checks if the course is offered
+    #checks if the course is offered
     if course not in c_roster:
-        print("Course not offered!")
+        print('Sorry, course is not offered')
         return
 
-    # Checks if the student has already registered for this course
+    #checks if the student is enrolled in this class already
     if id in c_roster[course]:
-        print("Student already registered for this course!")
+        print('Sorry, student is already enrolled in this course')
         return
 
-    # Checks if the course is full
+    #checks if the course is full
     if len(c_roster[course]) >= c_max_size[course]:
-        print("Course is full!")
+        print('Sorry, this course is at max capacity')
         return
 
-    # This then adds the student ID to the courses roster
+    #will add the student to the course 
     c_roster[course].append(id)
-    print("Student has been added to this course!")
+    print('student has been added to this course')
+
 
 
 
