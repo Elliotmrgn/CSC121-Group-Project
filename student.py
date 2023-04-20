@@ -15,7 +15,7 @@ def list_courses(id, c_roster):
     # student; c_roster is the list of class rosters. This function
     # has no return value.
     # -------------------------------------------------------------
-    
+
     # This finds the students registration information
     for roster in c_roster:
         if roster['id'] == id:
@@ -25,7 +25,7 @@ def list_courses(id, c_roster):
         print(f"Student with ID {id} not found.")
         return
 
-    #this Counts the number of courses
+    # this Counts the number of courses
     num_courses = len(student_courses)
 
     # Shows the courses
@@ -48,31 +48,29 @@ def add_course(id, c_roster, c_max_size):
     # roster and display a message if there is no problem.  This
     # function has no return value.
     # -------------------------------------------------------------
-    
+
     # asks the for the course they want to add
     course = input('enter the course you want to add?')
     course = course.upper()
 
-    #checks if the course is offered
+    # checks if the course is offered
     if course not in c_roster:
         print('Sorry, course is not offered')
         return
 
-    #checks if the student is enrolled in this class already
+    # checks if the student is enrolled in this class already
     if id in c_roster[course]:
         print('Sorry, student is already enrolled in this course')
         return
 
-    #checks if the course is full
+    # checks if the course is full
     if len(c_roster[course]) >= c_max_size[course]:
         print('Sorry, this course is at max capacity')
         return
 
-    #will add the student to the course 
+    # will add the student to the course
     c_roster[course].append(id)
     print('student has been added to this course')
-
-
 
 
 def drop_course(id, c_roster):

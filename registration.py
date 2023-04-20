@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------
-# Author:
-# Date:
+# Author: Elliot Morgan
+# Date: 04/19/2023
 #
 # This program creates a class registration system.  It allows
 # students to add courses, drop courses and list courses they are
@@ -9,7 +9,7 @@
 # -----------------------------------------------------------------
 import student
 import billing
-
+import bcrypt
 
 def main():
     # ------------------------------------------------------------
@@ -22,8 +22,14 @@ def main():
     # courses. This function has no return value.
     # -------------------------------------------------------------
 
-    student_list = [('1001', '111'), ('1002', '222'),
-                    ('1003', '333'), ('1004', '444')]
+    # Student ID and PINs for grading (normally this wouldn't be here)
+    # ('1001', '111'), ('1002', '222'), ('1003', '333'), ('1004', '444')
+
+    student_list = [('1001', b'$2b$12$jTLcwQRKsODvF6OrY5ZI7.IJiI9hJcJJKdY8nV2iaUyWjOgFMpR2G'),
+                    ('1002', b'$2b$12$GH9wBGzZ40pGu85NEX3cVeOekeZ7RromAdDISyT0n8YwqcgxWZLDW'),
+                    ('1003', b'$2b$12$iR5AIVPGIMt2x5IMQC0alOgrNvSJWP7dkuq.fUDPyNbPrQzdRotFa'),
+                    ('1004', b'$2b$12$xbPBik9Ddi6aqOx8r5bk8uSxrN559yMLtc7CowUvqgwiHnnoLhNCy')]
+
     student_in_state = {'1001': True,
                         '1002': False,
                         '1003': True,
@@ -40,7 +46,7 @@ def main():
 
     while True:
         # ID input
-        id_input = input("Enter ID, 0 to quit: ")
+        id_input = input("Enter ID to log in, or 0 to quit: ")
 
         # Break loop on 0 input
         if id_input == "0":
@@ -49,12 +55,11 @@ def main():
         else:
             # Checks the ID and PIN
             if login(id_input, student_list):
-                print("ID and PIN verified\n")
 
                 while True:
                     # Input for user selection
                     user_selection = input(
-                        "Enter 1 to add course, 2 to drop course, 3 to list courses, 4 to show bill, 0 to exit:")
+                        "Enter 1 to add course, 2 to drop course, 3 to list courses, 4 to show bill, 0 to exit: ")
 
                     # Break loop on 0 input
                     if user_selection == "0":
@@ -84,10 +89,6 @@ def main():
                     else:
                         print("invalid input")
 
-            # Wrong ID and/or PIN
-            else:
-                print("ID or PIN incorrect\n")
-
 
 def login(id, s_list):
     # ------------------------------------------------------------
@@ -99,13 +100,46 @@ def login(id, s_list):
     # -------------------------------------------------------------
 
     # PIN input
-    pin_input = input("Enter PIN: ")
+    pin = str(input("Enter PIN: "))
 
-    # combines ID and PIN into a tuple and checks if it exists in the student list
-    if (id, pin_input) in s_list:
-        return True
+    # finds the tuple corresponding to the id entered, otherwise returns None
+    matched_id = next((s for s in s_list if s[0] == id), None)
+    # if student id was found
+    if matched_id is not None:
+        # checks the input pin to the stored hash
+        if bcrypt.checkpw(pin.encode(), matched_id[1]):
+            print("ID and PIN verified\n")
+            return True
+        # Wrong PIN
+        else:
+            print("ID or PIN incorrect\n")
+            return False
+    # Wrong ID
     else:
+        print("ID or PIN incorrect\n")
         return False
 
 
-main()
+def password_hash(pin):
+    # ------------------------------------------------------------
+    # This function would be used when creating a new PIN for a student
+    # Since we do not have that functionality yet, I manually ran it on each password we were provided
+    # It has one parameter: pin, which would be the new PIN entered
+    # This function utilizes the bcrypt library to first create a
+    # new salt that will be used for hashing. Then combines encoded
+    # new PIN and salt to create the hashed_password. It returns
+    # this hashed password that can be added to the student_list
+    # -------------------------------------------------------------
+
+    salt = bcrypt.gensalt()  # generate a new salt for pin
+    # hash the inputted pin (pin must be encoded since it hashes the byte values of the string)
+    hashed_password = bcrypt.hashpw(pin.encode(), salt)
+
+    return hashed_password
+
+
+# Error catch for stopping program prematurely
+try:
+    main()
+except KeyboardInterrupt:
+    print(f"\n\nProgram was ended")
