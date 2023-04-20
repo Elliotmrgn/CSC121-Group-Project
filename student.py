@@ -17,22 +17,24 @@ def list_courses(id, c_roster):
     # -------------------------------------------------------------
 
     # This finds the students registration information
-    for roster in c_roster:
-        if roster['id'] == id:
-            student_courses = roster['courses']
-            break
+    students_courses = [course for course in c_course if id in c_roster[course]]
+    
+    if student_courses:
+        # this counts the number of courses 
+        num_courses = len(student_courses)
+        
+        # shows the courses
+        print("courses registered: ")
+        for course in student_courses:
+            print(f'\t{course}')
+        else:
+            print(f'Total number: {num_courses}')
     else:
-        print(f"Student with ID {id} not found.")
-        return
-
-    # this Counts the number of courses
-    num_courses = len(student_courses)
-
-    # Shows the courses
-    print(f"Student with ID {id} has registered for the following {num_courses} courses:")
-    for course in student_courses:
-        print(course)
-
+        print("No registered courses found")
+    
+    print()
+    
+            
 
 def add_course(id, c_roster, c_max_size):
     # ------------------------------------------------------------
