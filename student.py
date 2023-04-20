@@ -84,4 +84,5 @@ def drop_course(id, c_roster):
     # Remove student ID from the course’s roster and display a message
     # if there is no problem.  This function has no return value.
     # -------------------------------------------------------------
+
     pass  # temporarily avoid empty function definition
