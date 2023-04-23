@@ -87,4 +87,20 @@ def drop_course(id, c_roster):
     # if there is no problem.  This function has no return value.
     # -------------------------------------------------------------
 
-    pass  # temporarily avoid empty function definition
+    # Ask the user for the course to drop
+    course_to_drop = input("Enter the course you would like to drop:")
+    
+    #checks if course is offered
+    if course_to_drop not in c_roster:
+        print("Course is not offered")
+        return
+    
+    #checks if the student is enrolled in the course
+    if id not in c_roster[course_to_drop]:
+        print("Student is not enrolled in this course")
+        return
+    
+    #removes the student from the courses roster
+    c_roster[course_to_drop].remove(id)
+    print(f'student {id} has been dropped from {course_to_drop}')
+                        
