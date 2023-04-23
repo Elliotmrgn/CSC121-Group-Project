@@ -51,28 +51,28 @@ def add_course(id, c_roster, c_max_size):
     # function has no return value.
     # -------------------------------------------------------------
 
-    # asks the for the course they want to add
-    course = input('enter the course you want to add?')
+   # asks the for the course they want to add
+    course = input('Enter the course you want to add: ')
     course = course.upper()
 
     # checks if the course is offered
     if course not in c_roster:
-        print('Sorry, course is not offered')
+        print('Sorry, course is not offered\n')
         return
 
     # checks if the student is enrolled in this class already
     if id in c_roster[course]:
-        print('Sorry, student is already enrolled in this course')
+        print('Sorry, student is already enrolled in this course\n')
         return
 
     # checks if the course is full
     if len(c_roster[course]) >= c_max_size[course]:
-        print('Sorry, this course is at max capacity')
+        print('Sorry, this course is at max capacity\n')
         return
 
     # will add the student to the course
     c_roster[course].append(id)
-    print('student has been added to this course')
+    print('Student has been added to this course\n')
 
 
 def drop_course(id, c_roster):
@@ -88,19 +88,20 @@ def drop_course(id, c_roster):
     # -------------------------------------------------------------
 
     # Ask the user for the course to drop
-    course_to_drop = input("Enter the course you would like to drop:")
+    course_to_drop = input("Enter the course you would like to drop: ")
+    course_to_drop = course_to_drop.upper()
     
-    #checks if course is offered
+    # checks if course is offered
     if course_to_drop not in c_roster:
-        print("Course is not offered")
+        print("Course is not offered\n")
         return
-    
-    #checks if the student is enrolled in the course
+
+    # checks if the student is enrolled in the course
     if id not in c_roster[course_to_drop]:
-        print("Student is not enrolled in this course")
+        print("Student is not enrolled in this course\n")
         return
-    
-    #removes the student from the courses roster
+
+    # removes the student from the courses roster
     c_roster[course_to_drop].remove(id)
     print(f'student {id} has been dropped from {course_to_drop}')
                         
