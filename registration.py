@@ -11,6 +11,7 @@ import student
 import billing
 import bcrypt
 
+
 def main():
     # ------------------------------------------------------------
     # This function manages the whole registration system.  It has

@@ -35,7 +35,6 @@ def calculate_hours_and_bill(id, s_in_state, c_rosters, c_hours):
 
         # If the student's id is found in the course roster...
         if id in students:
-
             # Add the credit hours to the total
             total_credit_hours += c_hours[course]
 
