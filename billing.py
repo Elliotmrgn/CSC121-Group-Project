@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------
-# Author: Chase
-# Date: April 3, 2023
+# Author: Chase Smith
+# Date: 4/3/2023
 #
 # This module calculates and displays billing information
 # for students in the class registration system.  Student and
