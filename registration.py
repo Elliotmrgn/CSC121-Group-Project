@@ -88,7 +88,7 @@ def main():
 
                     # Invalid input
                     else:
-                        print("invalid input")
+                        print(f"Invalid input!\n")
 
 
 def login(id, s_list):

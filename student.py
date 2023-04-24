@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------
-# Author:
-# Date:
+# Author: Jamar McLean, Elliot Morgan
+# Date: 04/15/2023
 #
 # This module supports changes in the registered courses
 # for students in the class registration system.  It allows
@@ -24,7 +24,7 @@ def list_courses(id, c_roster):
         num_courses = len(student_courses)
 
         # shows the courses
-        print("courses registered: ")
+        print("Courses registered: ")
         for course in student_courses:
             print(f'\t{course}')
         else:
@@ -90,7 +90,7 @@ def drop_course(id, c_roster):
 
     # checks if course is offered
     if course_to_drop not in c_roster:
-        print("Course is not offered\n")
+        print("Course is not found\n")
 
     # checks if the student is enrolled in the course
     elif id not in c_roster[course_to_drop]:
